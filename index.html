@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Market Radar 360° - Monitor rynku finansowego: transakcje polityków, fundusze 13F, insiderzy, wskaźniki makro">
+    <title>Market Radar 360° - Dashboard</title>
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/styles.css">
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>📊 Market Radar 360°</h1>
+                    <span class="tagline">Smart Money Tracker</span>
+                </div>
+                <div class="header-actions">
+                    <button class="btn-icon" id="refreshBtn" title="Odśwież dane">
+                        <span>🔄</span>
+                    </button>
+                    <button class="btn-icon" id="themeToggle" title="Przełącz motyw">
+                        <span>🌙</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="container">
+            <ul class="nav-list">
+                <li><a href="#dashboard" class="nav-link active" data-section="dashboard">Dashboard</a></li>
+                <li><a href="#congress" class="nav-link" data-section="congress">Kongres</a></li>
+                <li><a href="#funds" class="nav-link" data-section="funds">Fundusze 13F</a></li>
+                <li><a href="#insiders" class="nav-link" data-section="insiders">Insiderzy</a></li>
+                <li><a href="#macro" class="nav-link" data-section="macro">Makro</a></li>
+                <li><a href="#flow" class="nav-link" data-section="flow">Flow</a></li>
+                <li><a href="#sentiment" class="nav-link" data-section="sentiment">Sentyment</a></li>
+                <li><a href="#watchlist" class="nav-link" data-section="watchlist">⭐ Watchlista</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+            
+            <!-- Dashboard Section -->
+            <section id="dashboard-section" class="section active">
+                <h2 class="section-title">Dashboard</h2>
+                <p class="last-update">Ostatnia aktualizacja: <span id="lastUpdateTime">-</span></p>
+
+                <!-- Alerts Widget -->
+                <div class="widget alerts-widget">
+                    <h3 class="widget-title">🚨 Aktywne alerty</h3>
+                    <div id="alertsContainer" class="alerts-container">
+                        <p class="loading">Ładowanie alertów...</p>
+                    </div>
+                </div>
+
+                <!-- Grid Layout for Widgets -->
+                <div class="dashboard-grid">
+                    
+                    <!-- Latest Congress Transactions -->
+                    <div class="widget">
+                        <h3 class="widget-title">🏛️ Ostatnie transakcje polityków</h3>
+                        <div id="congressWidget" class="widget-content">
+                            <p class="loading">Ładowanie...</p>
+                        </div>
+                        <a href="#congress" class="widget-link" data-section="congress">Zobacz wszystkie →</a>
+                    </div>
+
+                    <!-- Top 13F Changes -->
+                    <div class="widget">
+                        <h3 class="widget-title">💰 Największe zmiany 13F</h3>
+                        <div id="fundsWidget" class="widget-content">
+                            <p class="loading">Ładowanie...</p>
+                        </div>
+                        <a href="#funds" class="widget-link" data-section="funds">Zobacz wszystkie →</a>
+                    </div>
+
+                    <!-- Macro Indicators -->
+                    <div class="widget">
+                        <h3 class="widget-title">📈 Wskaźniki makro</h3>
+                        <div id="macroWidget" class="widget-content">
+                            <p class="loading">Ładowanie...</p>
+                        </div>
+                        <a href="#macro" class="widget-link" data-section="macro">Zobacz szczegóły →</a>
+                    </div>
+
+                    <!-- Sentiment -->
+                    <div class="widget">
+                        <h3 class="widget-title">😱 Sentyment rynkowy</h3>
+                        <div id="sentimentWidget" class="widget-content">
+                            <p class="loading">Ładowanie...</p>
+                        </div>
+                        <a href="#sentiment" class="widget-link" data-section="sentiment">Zobacz szczegóły →</a>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- Congress Section -->
+            <section id="congress-section" class="section">
+                <h2 class="section-title">🏛️ Transakcje Kongresu USA</h2>
+                
+                <div class="filters">
+                    <input type="text" id="congressSearch" placeholder="Szukaj po osobie lub tickerze..." class="search-input">
+                    <select id="congressChamber" class="filter-select">
+                        <option value="">Wszystkie izby</option>
+                        <option value="House">House</option>
+                        <option value="Senate">Senate</option>
+                    </select>
+                    <select id="congressType" class="filter-select">
+                        <option value="">Wszystkie transakcje</option>
+                        <option value="purchase">Zakupy</option>
+                        <option value="sale">Sprzedaże</option>
+                    </select>
+                </div>
+
+                <div id="congressTable" class="table-container">
+                    <p class="loading">Ładowanie danych...</p>
+                </div>
+            </section>
+
+            <!-- Funds 13F Section -->
+            <section id="funds-section" class="section">
+                <h2 class="section-title">💰 Fundusze 13F - Smart Money</h2>
+                
+                <div class="funds-tabs" id="fundsTabs">
+                    <button class="tab-btn active" data-fund="all">Wszystkie</button>
+                    <!-- Dynamicznie generowane zakładki funduszy -->
+                </div>
+
+                <div id="fundsTable" class="table-container">
+                    <p class="loading">Ładowanie danych...</p>
+                </div>
+            </section>
+
+            <!-- Insiders Section -->
+            <section id="insiders-section" class="section">
+                <h2 class="section-title">🔍 Insider Trading (Form 4)</h2>
+                
+                <div class="filters">
+                    <input type="text" id="insidersSearch" placeholder="Szukaj po firmie lub tickerze..." class="search-input">
+                    <select id="insidersType" class="filter-select">
+                        <option value="">Wszystkie transakcje</option>
+                        <option value="BUY">Tylko zakupy</option>
+                        <option value="SELL">Tylko sprzedaże</option>
+                    </select>
+                    <input type="number" id="insidersMinValue" placeholder="Min. wartość ($)" class="filter-input">
+                </div>
+
+                <div id="insidersTable" class="table-container">
+                    <p class="loading">Ładowanie danych...</p>
+                </div>
+            </section>
+
+            <!-- Macro Section -->
+            <section id="macro-section" class="section">
+                <h2 class="section-title">📈 Wskaźniki makroekonomiczne</h2>
+                
+                <div class="macro-grid">
+                    <div class="macro-card">
+                        <h3>Krzywa dochodowości</h3>
+                        <canvas id="chartYields"></canvas>
+                    </div>
+                    <div class="macro-card">
+                        <h3>Zmienność i waluty</h3>
+                        <canvas id="chartVolatility"></canvas>
+                    </div>
+                    <div class="macro-card">
+                        <h3>Surowce</h3>
+                        <canvas id="chartCommodities"></canvas>
+                    </div>
+                    <div class="macro-card">
+                        <h3>Spread 2s10s (Historia)</h3>
+                        <canvas id="chartSpread"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Flow Section -->
+            <section id="flow-section" class="section">
+                <h2 class="section-title">💸 Przepływy kapitału</h2>
+                
+                <div class="flow-grid">
+                    <div class="widget">
+                        <h3 class="widget-title">ETF Inflows/Outflows</h3>
+                        <div id="etfFlowsTable" class="widget-content">
+                            <p class="loading">Ładowanie...</p>
+                        </div>
+                    </div>
+                    
+                    <div class="widget">
+                        <h3 class="widget-title">Opcje - Unusual Volume</h3>
+                        <div id="optionsTable" class="widget-content">
+                            <p class="loading">Ładowanie...</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sentiment Section -->
+            <section id="sentiment-section" class="section">
+                <h2 class="section-title">😱 Sentyment rynkowy</h2>
+                
+                <div class="sentiment-grid">
+                    <div class="sentiment-card fear-greed-card">
+                        <h3>Fear & Greed Index</h3>
+                        <div id="fearGreedGauge" class="gauge-container">
+                            <p class="loading">Ładowanie...</p>
+                        </div>
+                    </div>
+                    
+                    <div class="sentiment-card">
+                        <h3>AAII Sentiment Survey</h3>
+                        <canvas id="chartAAII"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Watchlist Section -->
+            <section id="watchlist-section" class="section">
+                <h2 class="section-title">⭐ Twoja Watchlista</h2>
+                <p class="section-description">Dodaj tickery, polityków lub fundusze do obserwowanych</p>
+                
+                <div class="watchlist-add">
+                    <input type="text" id="watchlistInput" placeholder="Wpisz ticker, nazwę polityka lub funduszu..." class="search-input">
+                    <button id="watchlistAddBtn" class="btn btn-primary">Dodaj</button>
+                </div>
+
+                <div id="watchlistContent" class="watchlist-content">
+                    <p class="empty-state">Twoja watchlista jest pusta. Dodaj pierwsze pozycje!</p>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p class="disclaimer">
+                <strong>⚠️ Disclaimer:</strong> Market Radar 360° służy wyłącznie celom edukacyjnym i informacyjnym. 
+                NIE stanowi porady inwestycyjnej. Dane transakcji polityków mogą mieć opóźnienia ustawowe (do 45 dni). 
+                Zawsze przeprowadzaj własne badania (DYOR) przed podjęciem decyzji inwestycyjnych.
+            </p>
+            <p class="copyright">
+                © 2025 Market Radar 360° | 
+                <a href="https://github.com" target="_blank">GitHub</a> | 
+                <a href="#" id="sourcesLink">Źródła danych</a>
+            </p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/utils.js"></script>
+    <script src="js/data-loader.js"></script>
+    <script src="js/filters.js"></script>
+    <script src="js/charts.js"></script>
+    <script src="js/alerts.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
