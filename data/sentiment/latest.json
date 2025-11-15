@@ -1,0 +1,40 @@
+{
+  "metadata": {
+    "last_updated": "2025-11-15T12:00:00Z"
+  },
+  "fear_greed": {
+    "index": 62.5,
+    "classification": "Greed",
+    "signal": "cautious",
+    "components": {
+      "vix": {
+        "value": 15.2,
+        "normalized": 76.0,
+        "weight": 0.30
+      },
+      "put_call_ratio": {
+        "value": 0.70,
+        "normalized": 80.0,
+        "weight": 0.25
+      },
+      "market_momentum": {
+        "value": 0.68,
+        "normalized": 68.0,
+        "weight": 0.25
+      },
+      "safe_haven_demand": {
+        "value": 0.32,
+        "normalized": 68.0,
+        "weight": 0.20
+      }
+    }
+  },
+  "aaii": {
+    "bullish": 42.5,
+    "neutral": 28.0,
+    "bearish": 29.5,
+    "bull_bear_spread": 13.0,
+    "date": "2025-11-15",
+    "interpretation": "Bullish"
+  }
+}

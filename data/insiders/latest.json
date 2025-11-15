@@ -1,0 +1,36 @@
+{
+  "metadata": {
+    "last_updated": "2025-11-15T15:00:00Z",
+    "total_count": 2
+  },
+  "transactions": [
+    {
+      "insider_name": "Tim Cook",
+      "insider_title": "CEO",
+      "company": "Apple Inc",
+      "ticker": "AAPL",
+      "transaction_type": "BUY",
+      "shares": 5000,
+      "price_per_share": 175.25,
+      "value": 876250,
+      "shares_owned_after": 3250000,
+      "date": "2025-11-12",
+      "filing_date": "2025-11-14",
+      "form_url": "https://www.sec.gov/cgi-bin/browse-edgar"
+    },
+    {
+      "insider_name": "Lisa Su",
+      "insider_title": "CEO",
+      "company": "Advanced Micro Devices Inc",
+      "ticker": "AMD",
+      "transaction_type": "SELL",
+      "shares": 10000,
+      "price_per_share": 145.50,
+      "value": 1455000,
+      "shares_owned_after": 500000,
+      "date": "2025-11-10",
+      "filing_date": "2025-11-13",
+      "form_url": "https://www.sec.gov/cgi-bin/browse-edgar"
+    }
+  ]
+}

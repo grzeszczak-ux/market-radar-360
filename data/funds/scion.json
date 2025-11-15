@@ -1,0 +1,48 @@
+{
+  "fund_info": {
+    "name": "Scion Asset Management (Michael Burry)",
+    "cik": "0001649339",
+    "filing_date": "2025-11-14",
+    "period_end": "2025-09-30",
+    "total_value": 48500000
+  },
+  "metadata": {
+    "last_updated": "2025-11-15T10:00:00Z",
+    "holdings_count": 3
+  },
+  "holdings": [
+    {
+      "ticker": "BABA",
+      "cusip": "01609W102",
+      "name": "Alibaba Group Holding Ltd",
+      "shares": 200000,
+      "value": 18000000,
+      "change_shares": 200000,
+      "change_pct": 100,
+      "portfolio_weight": 37.1,
+      "position_type": "NEW"
+    },
+    {
+      "ticker": "JD",
+      "cusip": "47215P106",
+      "name": "JD.com Inc",
+      "shares": 300000,
+      "value": 15000000,
+      "change_shares": 100000,
+      "change_pct": 50,
+      "portfolio_weight": 30.9,
+      "position_type": "INCREASED"
+    },
+    {
+      "ticker": "GEO",
+      "cusip": "36162J106",
+      "name": "The GEO Group Inc",
+      "shares": 500000,
+      "value": 15500000,
+      "change_shares": 0,
+      "change_pct": 0,
+      "portfolio_weight": 32.0,
+      "position_type": "UNCHANGED"
+    }
+  ]
+}

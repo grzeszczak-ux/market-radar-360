@@ -1,0 +1,71 @@
+{
+  "metadata": {
+    "last_updated": "2025-11-15T17:00:00Z",
+    "etf_count": 3,
+    "options_count": 3
+  },
+  "etf_flows": [
+    {
+      "ticker": "SPY",
+      "name": "SPDR S&P 500 ETF",
+      "flow_1d": -250000000,
+      "flow_5d": -1200000000,
+      "flow_30d": 3500000000,
+      "aum": 450000000000,
+      "date": "2025-11-15"
+    },
+    {
+      "ticker": "QQQ",
+      "name": "Invesco QQQ Trust",
+      "flow_1d": 150000000,
+      "flow_5d": 800000000,
+      "flow_30d": 5200000000,
+      "aum": 250000000000,
+      "date": "2025-11-15"
+    },
+    {
+      "ticker": "IWM",
+      "name": "iShares Russell 2000 ETF",
+      "flow_1d": -50000000,
+      "flow_5d": -200000000,
+      "flow_30d": -1500000000,
+      "aum": 65000000000,
+      "date": "2025-11-15"
+    }
+  ],
+  "options": [
+    {
+      "ticker": "SPY",
+      "total_volume": 8500000,
+      "call_volume": 5000000,
+      "put_volume": 3500000,
+      "put_call_ratio": 0.70,
+      "total_oi": 15000000,
+      "avg_volume_30d": 6500000,
+      "volume_anomaly": true,
+      "date": "2025-11-15"
+    },
+    {
+      "ticker": "AAPL",
+      "total_volume": 1200000,
+      "call_volume": 800000,
+      "put_volume": 400000,
+      "put_call_ratio": 0.50,
+      "total_oi": 2500000,
+      "avg_volume_30d": 950000,
+      "volume_anomaly": true,
+      "date": "2025-11-15"
+    },
+    {
+      "ticker": "TSLA",
+      "total_volume": 2000000,
+      "call_volume": 1400000,
+      "put_volume": 600000,
+      "put_call_ratio": 0.43,
+      "total_oi": 3200000,
+      "avg_volume_30d": 1800000,
+      "volume_anomaly": false,
+      "date": "2025-11-15"
+    }
+  ]
+}
