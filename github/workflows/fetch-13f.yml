@@ -1,0 +1,40 @@
+name: Fetch 13F Funds Data
+
+on:
+  schedule:
+    # Uruchamianie raz dziennie o 8:00 UTC
+    - cron: '0 8 * * *'
+  workflow_dispatch:
+
+jobs:
+  fetch-13f:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      
+      - name: Fetch 13F data
+        run: |
+          cd scripts
+          python fetch_13f.py
+        env:
+          SEC_EDGAR_USER_AGENT: ${{ secrets.SEC_EDGAR_USER_AGENT }}
+      
+      - name: Commit and push if changed
+        run: |
+          git config --global user.name 'GitHub Actions Bot'
+          git config --global user.email 'actions@github.com'
+          git add data/funds/
+          git diff --quiet && git diff --staged --quiet || \
+            (git commit -m "💰 Update 13F funds data [automated]" && git push)

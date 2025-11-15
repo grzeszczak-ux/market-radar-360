@@ -1,0 +1,40 @@
+name: Fetch Congress Data
+
+on:
+  schedule:
+    # Uruchamianie co 30 minut
+    - cron: '*/30 * * * *'
+  workflow_dispatch:  # Możliwość ręcznego uruchomienia
+
+jobs:
+  fetch-congress:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      
+      - name: Fetch Congress data
+        run: |
+          cd scripts
+          python fetch_congress.py
+        env:
+          SEC_EDGAR_USER_AGENT: ${{ secrets.SEC_EDGAR_USER_AGENT }}
+      
+      - name: Commit and push if changed
+        run: |
+          git config --global user.name 'GitHub Actions Bot'
+          git config --global user.email 'actions@github.com'
+          git add data/congress/
+          git diff --quiet && git diff --staged --quiet || \
+            (git commit -m "📊 Update Congress data [automated]" && git push)

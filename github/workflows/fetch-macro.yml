@@ -1,0 +1,42 @@
+name: Fetch Macro Data
+
+on:
+  schedule:
+    # Uruchamianie co 15 minut w godzinach rynkowych USA (13:00-21:00 UTC, pon-pt)
+    - cron: '*/15 13-21 * * 1-5'
+    # Również 1x dziennie poza godzinami rynkowymi
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+
+jobs:
+  fetch-macro:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      
+      - name: Fetch Macro data
+        run: |
+          cd scripts
+          python fetch_macro.py
+        env:
+          FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
+      
+      - name: Commit and push if changed
+        run: |
+          git config --global user.name 'GitHub Actions Bot'
+          git config --global user.email 'actions@github.com'
+          git add data/macro/
+          git diff --quiet && git diff --staged --quiet || \
+            (git commit -m "📈 Update Macro indicators [automated]" && git push)
