@@ -1,0 +1,60 @@
+{
+  "congress": {
+    "house": {
+      "url": "https://house-stock-watcher-data.s3-us-west-2.amazonaws.com/data/all_transactions.json",
+      "frequency": "30min",
+      "description": "House of Representatives stock transactions"
+    },
+    "senate": {
+      "url": "https://senate-stock-watcher-data.s3-us-west-2.amazonaws.com/aggregate/all_transactions.json",
+      "frequency": "30min",
+      "description": "Senate stock transactions"
+    }
+  },
+  "sec": {
+    "edgar_base": "https://www.sec.gov/cgi-bin/browse-edgar",
+    "edgar_api": "https://data.sec.gov/submissions/",
+    "frequency": "daily",
+    "description": "SEC EDGAR database for 13F and Form 4 filings"
+  },
+  "macro": {
+    "fred": {
+      "base_url": "https://api.stlouisfed.org/fred/series/observations",
+      "series": {
+        "DGS2": "2-Year Treasury Yield",
+        "DGS10": "10-Year Treasury Yield",
+        "DEXUSEU": "Dollar Index (DXY proxy)",
+        "VIXCLS": "VIX Volatility Index"
+      },
+      "frequency": "15min"
+    },
+    "yahoo": {
+      "symbols": ["^TNX", "^IRX", "DX-Y.NYB", "^VIX", "GC=F", "CL=F", "HG=F"],
+      "description": "Macro instruments: bonds, DXY, VIX, gold, oil, copper",
+      "frequency": "30min"
+    }
+  },
+  "funds": {
+    "priority_ciks": {
+      "0001649339": "Scion Asset Management (Michael Burry)",
+      "0001067983": "Berkshire Hathaway (Warren Buffett)",
+      "0001350694": "Bridgewater Associates",
+      "0001364742": "Pershing Square Capital",
+      "0001336528": "Third Point LLC",
+      "0001656456": "ARK Investment Management"
+    },
+    "frequency": "daily"
+  },
+  "sentiment": {
+    "aaii": {
+      "url": "https://www.aaii.com/sentimentsurvey",
+      "frequency": "weekly",
+      "description": "AAII Investor Sentiment Survey"
+    },
+    "fear_greed": {
+      "synthetic": true,
+      "components": ["VIX", "put_call_ratio", "market_momentum"],
+      "frequency": "daily"
+    }
+  }
+}

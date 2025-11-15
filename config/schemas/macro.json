@@ -1,0 +1,94 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Macro Indicators Schema",
+  "type": "object",
+  "required": ["indicators", "metadata"],
+  "properties": {
+    "metadata": {
+      "type": "object",
+      "required": ["last_updated"],
+      "properties": {
+        "last_updated": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "indicators": {
+      "type": "object",
+      "properties": {
+        "yields": {
+          "type": "object",
+          "properties": {
+            "US2Y": {
+              "type": "number"
+            },
+            "US10Y": {
+              "type": "number"
+            },
+            "spread_2s10s": {
+              "type": "number",
+              "description": "10Y - 2Y spread (wartość ujemna = inwersja)"
+            }
+          }
+        },
+        "currencies": {
+          "type": "object",
+          "properties": {
+            "DXY": {
+              "type": "number",
+              "description": "Dollar Index"
+            }
+          }
+        },
+        "volatility": {
+          "type": "object",
+          "properties": {
+            "VIX": {
+              "type": "number"
+            }
+          }
+        },
+        "commodities": {
+          "type": "object",
+          "properties": {
+            "gold": {
+              "type": "number",
+              "description": "Cena złota (oz)"
+            },
+            "oil": {
+              "type": "number",
+              "description": "Cena ropy WTI"
+            },
+            "copper": {
+              "type": "number",
+              "description": "Cena miedzi"
+            }
+          }
+        }
+      }
+    },
+    "history": {
+      "type": "object",
+      "description": "Dane historyczne dla wykresów",
+      "patternProperties": {
+        "^[A-Z0-9_]+$": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["date", "value"],
+            "properties": {
+              "date": {
+                "type": "string",
+                "format": "date"
+              },
+              "value": {
+                "type": "number"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

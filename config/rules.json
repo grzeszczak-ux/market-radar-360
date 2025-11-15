@@ -1,0 +1,121 @@
+{
+  "alerts": {
+    "congress": [
+      {
+        "id": "congress_large_trade",
+        "name": "Duża transakcja polityka",
+        "condition": "amount > 250000",
+        "priority": "high",
+        "description": "Transakcja powyżej $250k"
+      },
+      {
+        "id": "congress_cluster",
+        "name": "Klaster transakcji na tym samym tickerze",
+        "condition": "multiple_politicians_same_ticker_7d >= 3",
+        "priority": "high",
+        "description": "3+ polityków handlowało tym samym tickerem w ciągu 7 dni"
+      },
+      {
+        "id": "congress_sector_focus",
+        "name": "Koncentracja na sektorze",
+        "condition": "sector_trades_30d >= 5",
+        "priority": "medium",
+        "description": "5+ transakcji w tym samym sektorze w ciągu 30 dni"
+      }
+    ],
+    "funds_13f": [
+      {
+        "id": "burry_new_position",
+        "name": "Nowa pozycja Burry'ego",
+        "condition": "fund == 'Scion' && position_change == 'NEW'",
+        "priority": "high",
+        "description": "Michael Burry otworzył nową pozycję"
+      },
+      {
+        "id": "large_position_increase",
+        "name": "Duży wzrost pozycji",
+        "condition": "position_change_pct > 50 && value > 10000000",
+        "priority": "high",
+        "description": "Fundusz zwiększył pozycję o 50%+ (wartość >$10M)"
+      },
+      {
+        "id": "major_exit",
+        "name": "Znaczące wyjście z pozycji",
+        "condition": "position_change_pct < -75",
+        "priority": "medium",
+        "description": "Fundusz zredukował pozycję o 75%+"
+      }
+    ],
+    "insiders": [
+      {
+        "id": "insider_large_buy",
+        "name": "Duży zakup insidera",
+        "condition": "transaction_type == 'BUY' && value > 1000000",
+        "priority": "high",
+        "description": "Insider kupił akcje za ponad $1M"
+      },
+      {
+        "id": "ceo_buy",
+        "name": "Zakup przez CEO",
+        "condition": "title CONTAINS 'CEO' && transaction_type == 'BUY'",
+        "priority": "high",
+        "description": "CEO kupuje akcje własnej firmy"
+      }
+    ],
+    "macro": [
+      {
+        "id": "yield_curve_inversion",
+        "name": "Inwersja krzywej dochodowości",
+        "condition": "spread_2s10s < 0",
+        "priority": "high",
+        "description": "Spread 2Y-10Y ujemny (inwersja)"
+      },
+      {
+        "id": "vix_spike",
+        "name": "Skok VIX",
+        "condition": "vix > 30",
+        "priority": "high",
+        "description": "VIX powyżej 30 (wysoka zmienność)"
+      },
+      {
+        "id": "vix_extreme_low",
+        "name": "Ekstremalnie niski VIX",
+        "condition": "vix < 12",
+        "priority": "medium",
+        "description": "VIX poniżej 12 (complacency)"
+      }
+    ],
+    "flow": [
+      {
+        "id": "massive_outflow",
+        "name": "Masowy odpływ z ETF",
+        "condition": "etf_flow < -1000000000",
+        "priority": "high",
+        "description": "Odpływ ponad $1B z ETF w jednym dniu"
+      },
+      {
+        "id": "unusual_options_volume",
+        "name": "Niezwykły wolumen opcji",
+        "condition": "options_volume > avg_30d * 3",
+        "priority": "medium",
+        "description": "Wolumen opcji 3x powyżej średniej 30-dniowej"
+      }
+    ],
+    "sentiment": [
+      {
+        "id": "extreme_fear",
+        "name": "Ekstremalny strach",
+        "condition": "fear_greed_index < 20",
+        "priority": "high",
+        "description": "Indeks strachu/chciwości poniżej 20"
+      },
+      {
+        "id": "extreme_greed",
+        "name": "Ekstremalna chciwość",
+        "condition": "fear_greed_index > 80",
+        "priority": "high",
+        "description": "Indeks strachu/chciwości powyżej 80"
+      }
+    ]
+  }
+}

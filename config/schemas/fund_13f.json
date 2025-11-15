@@ -1,0 +1,85 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "13F Fund Holdings Schema",
+  "type": "object",
+  "required": ["fund_info", "holdings", "metadata"],
+  "properties": {
+    "fund_info": {
+      "type": "object",
+      "required": ["name", "cik", "filing_date"],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "cik": {
+          "type": "string"
+        },
+        "filing_date": {
+          "type": "string",
+          "format": "date"
+        },
+        "period_end": {
+          "type": "string",
+          "format": "date"
+        },
+        "total_value": {
+          "type": "number"
+        }
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "required": ["last_updated"],
+      "properties": {
+        "last_updated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "holdings_count": {
+          "type": "integer"
+        }
+      }
+    },
+    "holdings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["ticker", "shares", "value"],
+        "properties": {
+          "ticker": {
+            "type": "string"
+          },
+          "cusip": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "shares": {
+            "type": "number"
+          },
+          "value": {
+            "type": "number",
+            "description": "Wartość pozycji w USD"
+          },
+          "change_shares": {
+            "type": "number",
+            "description": "Zmiana liczby akcji QoQ"
+          },
+          "change_pct": {
+            "type": "number",
+            "description": "Procentowa zmiana QoQ"
+          },
+          "portfolio_weight": {
+            "type": "number",
+            "description": "% portfela"
+          },
+          "position_type": {
+            "type": "string",
+            "enum": ["NEW", "INCREASED", "DECREASED", "SOLD_OUT", "UNCHANGED"]
+          }
+        }
+      }
+    }
+  }
+}

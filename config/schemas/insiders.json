@@ -1,0 +1,72 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Insider Transactions Schema (Form 4)",
+  "type": "object",
+  "required": ["transactions", "metadata"],
+  "properties": {
+    "metadata": {
+      "type": "object",
+      "required": ["last_updated", "total_count"],
+      "properties": {
+        "last_updated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "total_count": {
+          "type": "integer"
+        }
+      }
+    },
+    "transactions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["insider_name", "company", "ticker", "transaction_type", "shares", "date"],
+        "properties": {
+          "insider_name": {
+            "type": "string"
+          },
+          "insider_title": {
+            "type": "string",
+            "description": "Stanowisko insidera (CEO, CFO, Director, etc.)"
+          },
+          "company": {
+            "type": "string"
+          },
+          "ticker": {
+            "type": "string"
+          },
+          "transaction_type": {
+            "type": "string",
+            "enum": ["BUY", "SELL", "OPTION_EXERCISE", "GIFT", "OTHER"]
+          },
+          "shares": {
+            "type": "number"
+          },
+          "price_per_share": {
+            "type": "number"
+          },
+          "value": {
+            "type": "number",
+            "description": "Całkowita wartość transakcji"
+          },
+          "shares_owned_after": {
+            "type": "number"
+          },
+          "date": {
+            "type": "string",
+            "format": "date"
+          },
+          "filing_date": {
+            "type": "string",
+            "format": "date"
+          },
+          "form_url": {
+            "type": "string",
+            "format": "uri"
+          }
+        }
+      }
+    }
+  }
+}
